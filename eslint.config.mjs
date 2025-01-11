@@ -24,7 +24,8 @@ const eslintConfig = [
       "@next/next/no-page-custom-font": "off",
       "@next/next/no-title-in-document-head": "off",
       "@next/next/no-typos": "off",
-      "@next/next/no-unwanted-polyfillio": "off"
+      "@next/next/no-unwanted-polyfillio": "off",
+      "@typescript-eslint/no-explicit-any": "off"
     }
   }
 ];

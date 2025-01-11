@@ -16,7 +16,7 @@ const MessaageInput: React.FC<MessageInputProps> = ({
     placeholder,
     id,
     register,
-    errors,
+    // errors,
     required,
     type = "text"
 }) => {

@@ -19,6 +19,7 @@ const getMessages = async (
 
         return messages;
     } catch (error: any) {
+        console.error(`Error in getMessages: ${error.message}`);
         return [];
     }
 }

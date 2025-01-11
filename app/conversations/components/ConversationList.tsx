@@ -2,7 +2,7 @@
 
 import useConversation from "@/app/hooks/useConversation";
 import { FullConversationType } from "@/app/types";
-import { Conversation, User } from "@prisma/client";
+import { User } from "@prisma/client";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
@@ -87,7 +87,7 @@ const ConversationList: React.FC<ConversationListProps> = ({
             pusherClient.unbind('conversation:seen', removeHandler);
         }
 
-    }, [pusherKey]);
+    }, [pusherKey, router, conversationId]);
 
     return (
         <>
