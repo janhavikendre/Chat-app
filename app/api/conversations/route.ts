@@ -104,6 +104,7 @@ export async function POST(
         return NextResponse.json(newConversation);
 
     } catch (error: any) {
+        console.error(`Error in POST conversations: ${error.message}`);
         return new NextResponse('Internal Server Error', { status: 500 });
     }
 }

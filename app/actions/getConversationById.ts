@@ -1,6 +1,5 @@
 import prisma from '@/app/libs/prismadb';
 import getCurrentUser from './getCurrentUser';
-import exp from 'constants';
 
 const getConversationById = async (
     ConversationId: string
@@ -24,6 +23,7 @@ const getConversationById = async (
         return conversation;
 
     } catch (error: any) {
+        console.error(`Error in getConversationById: ${error.message}`);
         return null;
     }
 }
