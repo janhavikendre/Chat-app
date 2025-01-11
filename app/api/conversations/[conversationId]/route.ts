@@ -4,20 +4,31 @@ import prisma from "@/app/libs/prismadb";
 import { pusherServer } from "@/app/libs/pusher";
 
 interface IParams {
-    conversationId: string;  // Remove the optional marker (?)
+    conversationId?: string;
 }
 
 export async function POST(
     request: Request,
-    context: { params: IParams }  // Change this line to use context
+    { params }: { params: IParams }
 ) {
     try {
-        const { conversationId } = context.params;  // Access params through context
+        const { conversationId } = params;
         const currentUser = await getCurrentUser();
         
         if (!currentUser?.id) {
             return new NextResponse('Unauthorized', { status: 401 });
         }
+
+        // if (!conversationId) {
+        //     return new NextResponse('Invalid conversation ID', { status: 400 });
+        // }
+
+       
+        // await prisma.message.deleteMany({
+        //     where: {
+        //         conversationId: conversationId
+        //     }
+        // });
 
         const existingConversation = await prisma.conversation.findUnique({
             where: {
@@ -32,6 +43,7 @@ export async function POST(
             return new NextResponse('Invalid Id', { status: 404 });
         }
 
+        // and then deleteing the whole conversation
         const deletedConversation = await prisma.conversation.delete({
             where: {
                 id: conversationId,
@@ -45,7 +57,7 @@ export async function POST(
             if (user.email) {
                 pusherServer.trigger(user.email, 'conversation:remove', existingConversation);
             }
-        });
+        })
 
         return NextResponse.json(deletedConversation);
 
