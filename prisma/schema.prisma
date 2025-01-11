@@ -22,13 +22,10 @@ model User {
   hashedPassword String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
   conversationIds String[] @db.ObjectId
   conversations Conversation[] @relation(fields: [conversationIds], references: [id])
-
   seenMessageIds String[] @db.ObjectId
   seenMessages Message[] @relation("seen", fields: [seenMessageIds], references: [id])
-
   accounts Account[]
   messages Message[]
 }
@@ -46,25 +43,20 @@ model Account {
   scope String?
   id_token String? @db.String
   session_state String?
-
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   @@unique([provider, providerAccountId])
 }
 
 model Conversation {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  cretaedAt DateTime @default(now())
+  createdAt DateTime @default(now())
   lastMessageAt DateTime @default(now())
   name String?
   isGroup Boolean?
-
   messageIds String[] @db.ObjectId
-  messages Message[]
-
+  messages Message[] @relation("ConversationToMessage")
   userIds String[] @db.ObjectId
   users User[] @relation(fields: [userIds], references: [id])
-
 }
 
 model Message {
@@ -72,13 +64,10 @@ model Message {
   body String?
   image String?
   createdAt DateTime @default(now())
-
   seenIds String[] @db.ObjectId
   seen User[] @relation("seen", fields: [seenIds], references: [id])
-
   conversationId String @db.ObjectId
-  conversation Conversation @relation(fields: [conversationId], references: [id])
-
+  conversation Conversation @relation("ConversationToMessage", fields: [conversationId], references: [id], onDelete: Cascade)
   senderId String @db.ObjectId
   sender User @relation(fields: [senderId], references: [id], onDelete: Cascade)
 }

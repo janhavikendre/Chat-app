@@ -31,11 +31,13 @@ const ConfirmModel: React.FC<ConfirmModelProps> = ({
         .then(() => {
             onClose();
             router.push('/conversations');
+            router.refresh();
         })
         .catch(() => toast.error('Something went wrong!'))
         .finally(() => setIsLoading(false));
 
-    }, [conversationId, onClose, router]);
+    }, [conversationId, router, onClose]);
+    
     return (
      <Model
      isOpen={isOpen}

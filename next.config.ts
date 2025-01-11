@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     domains: [
       "res.cloudinary.com",
       "avatars.githubusercontent.com",
-      "lh3.googleusercontent"
+      "lh3.googleusercontent.com",
     ]
   }
 }

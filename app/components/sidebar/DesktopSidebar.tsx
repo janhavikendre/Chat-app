@@ -6,6 +6,7 @@ import DesktopItem from "./DesktopItem";
 import Avatar from "../Avatar";
 
 import { User } from ".prisma/client";
+import SettingsModel from "./SettingsModel";
 
 interface DesktopSidebarProps {
     currentUser: User;
@@ -20,6 +21,12 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
 
     console.log({ currentUser });
     return (
+        <>
+        <SettingsModel 
+        currentUser={currentUser}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        />
         <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:w-20 xl:px-6 lg:overflow-y-auto lg:bg-white lg:border-r-[1px] lg:pb-4 lg:flex lg:flex-col justify-between">
             <nav
             className="ml-4 flex flex-col justify-center">
@@ -50,6 +57,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
 
             </nav>
         </div>
+        </>
     )
 }
 
