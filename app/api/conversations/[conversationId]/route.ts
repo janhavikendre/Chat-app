@@ -12,7 +12,7 @@ export async function POST(
   { params }: { params: Promise<Params> }
 ) {
   try {
-    const { conversationId } = params; // Access dynamic route params directly
+    const { conversationId } = await params; // Access dynamic route params directly
     const currentUser = await getCurrentUser();
 
     if (!currentUser?.id) {
