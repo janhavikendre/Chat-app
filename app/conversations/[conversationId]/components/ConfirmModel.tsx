@@ -27,7 +27,7 @@ const ConfirmModel: React.FC<ConfirmModelProps> = ({
     const onDelete = useCallback(() => {
         setIsLoading(true);
 
-        axios.delete(`/api/conversations/${conversationId}`)
+        axios.post(`/api/conversations/${conversationId}`)
         .then(() => {
             onClose();
             router.push('/conversations');
