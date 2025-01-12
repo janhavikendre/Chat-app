@@ -10,13 +10,13 @@ interface IParams {
 // Updated type definition for the route handler
 export async function POST(
     request: Request,
-    context: { params: IParams }  // Changed this line to use context parameter
+    context: { params: Promise<IParams> }  // Changed this line to use context parameter
 ) {
     try {
         const currentUser = await getCurrentUser();
         const {
             conversationId
-        } = context.params;  // Access params through context
+        } = await context.params;  // Access params through context
 
         if (!currentUser?.id || !currentUser?.email) {
             return new NextResponse('Unauthorized', { status: 401 });
