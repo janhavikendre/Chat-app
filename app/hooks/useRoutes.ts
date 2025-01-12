@@ -29,7 +29,7 @@ const useRoutes = () => {
         {
             label: 'Logout',
             onClick: () => signOut({
-                callbackUrl: 'https://chat-app-u29r.vercel.app/'
+                callbackUrl: '/'
             }),
             icon: HiArrowLeftOnRectangle,
             href: '#'
