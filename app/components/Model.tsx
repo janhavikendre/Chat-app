@@ -23,7 +23,7 @@ const Model: React.FC<ModelProps> = ({
             <Dialog
             as="div"
             className="relative z-50"
-            onClose={onClose}
+            onClose={(value)=>{onClose()}}
             >
                 <TransitionChild
                 as={Fragment}
