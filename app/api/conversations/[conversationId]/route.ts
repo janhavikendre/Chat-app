@@ -9,7 +9,7 @@ interface Params {
 
 export async function POST(
   request: Request,
-  { params }: { params: Params }
+  { params }: { params: Promise<Params> }
 ) {
   try {
     const { conversationId } = params; // Access dynamic route params directly
