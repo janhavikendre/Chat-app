@@ -3,9 +3,10 @@ import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
 import { pusherServer } from "@/app/libs/pusher";
 
-export async function POST(request: Request) {
+export async function POST(request: Request, { params } : { params : Promise<any> } ) {
     try {
         // Get the conversationId from the URL path
+        console.log(params)
         const { pathname } = new URL(request.url);
         const conversationId = pathname.split('/')[4]; // Assuming the URL is structured like /api/conversations/[conversationId]
 
