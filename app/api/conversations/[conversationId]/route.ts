@@ -3,14 +3,18 @@ import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
 import { pusherServer } from "@/app/libs/pusher";
 
-export async function POST(request: Request) {
+interface IParams {
+    conversationId?: string;
+}
+
+export async function POST(
+    request: Request,
+    { params }: { params: IParams }
+) {
     try {
-        // Get the conversationId from the URL path
-        const { pathname } = new URL(request.url);
-        const conversationId = pathname.split('/')[4]; // Assuming the URL is structured like /api/conversations/[conversationId]
-
+        const { conversationId } = params;
         const currentUser = await getCurrentUser();
-
+        
         if (!currentUser?.id) {
             return new NextResponse('Unauthorized', { status: 401 });
         }
@@ -19,7 +23,7 @@ export async function POST(request: Request) {
             return new NextResponse('Invalid conversation ID', { status: 400 });
         }
 
-        // Delete all messages in the conversation
+       
         await prisma.message.deleteMany({
             where: {
                 conversationId: conversationId
@@ -39,7 +43,7 @@ export async function POST(request: Request) {
             return new NextResponse('Invalid Id', { status: 404 });
         }
 
-        // Delete the conversation itself
+        // and then deleteing the whole conversation
         const deletedConversation = await prisma.conversation.delete({
             where: {
                 id: conversationId,
@@ -49,16 +53,15 @@ export async function POST(request: Request) {
             }
         });
 
-        // Notify users about the conversation removal
         existingConversation.users.forEach((user) => {
             if (user.email) {
                 pusherServer.trigger(user.email, 'conversation:remove', existingConversation);
             }
-        });
+        })
 
         return NextResponse.json(deletedConversation);
 
-    } catch (error) {
+    } catch(error) {
         console.log("ERROR_CONVERSATION_DELETE", error);
         return new NextResponse('Internal Error', { status: 500 });
     }
