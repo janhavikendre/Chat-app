@@ -26,7 +26,8 @@ const eslintConfig = [
       "@next/next/no-typos": "off",
       "@next/next/no-unwanted-polyfillio": "off",
       "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-unused-vars":"off"
+      "@typescript-eslint/no-unused-vars":"off",
+      "@typescript-eslint/no-unused-expressions":"off"
     }
   }
 ];
