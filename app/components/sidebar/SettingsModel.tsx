@@ -93,7 +93,7 @@ const SettingsModel: React.FC<SettingsModelProps> = ({
                                 />
                                 <CldUploadButton 
                                 options={{ maxFiles: 1 }}
-                                onUpload={handleUpload}
+                                onSuccess={handleUpload}
                                 uploadPreset="mmyaf6id"
                                 >
                                     <Button 
