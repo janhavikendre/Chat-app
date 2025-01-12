@@ -19,16 +19,16 @@ export async function POST(
             return new NextResponse('Unauthorized', { status: 401 });
         }
 
-        // if (!conversationId) {
-        //     return new NextResponse('Invalid conversation ID', { status: 400 });
-        // }
+        if (!conversationId) {
+            return new NextResponse('Invalid conversation ID', { status: 400 });
+        }
 
        
-        // await prisma.message.deleteMany({
-        //     where: {
-        //         conversationId: conversationId
-        //     }
-        // });
+        await prisma.message.deleteMany({
+            where: {
+                conversationId: conversationId
+            }
+        });
 
         const existingConversation = await prisma.conversation.findUnique({
             where: {
