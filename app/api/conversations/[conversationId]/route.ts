@@ -1,18 +1,17 @@
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
-import { pusherServer } from "@/app/libs/pusher";
 
 interface IParams {
     conversationId?: string;
 }
 
-export async function POST(request: Request) {
+export async function POST(
+    request: Request,
+    { params }: { params: IParams }
+) {
     try {
-        // Get the conversationId from the URL path
-        const { pathname } = new URL(request.url);
-        const conversationId = pathname.split('/')[4]; // Assuming the URL is structured like /api/conversations/[conversationId]
-
+        const { conversationId } = params;
         const currentUser = await getCurrentUser();
         
         if (!currentUser?.id) {
@@ -23,40 +22,20 @@ export async function POST(request: Request) {
             return new NextResponse('Invalid conversation ID', { status: 400 });
         }
 
-        // Delete all messages in the conversation
+        // First of all choti janhavi i am dleting all message in an converstaion
         await prisma.message.deleteMany({
             where: {
                 conversationId: conversationId
             }
         });
 
-        const existingConversation = await prisma.conversation.findUnique({
-            where: {
-                id: conversationId
-            },
-            include: {
-                users: true
-            }
-        });
-
-        if (!existingConversation) {
-            return new NextResponse('Invalid Id', { status: 404 });
-        }
-
-        // Delete the conversation itself
+        // and then deleteing the whole conversation
         const deletedConversation = await prisma.conversation.delete({
             where: {
                 id: conversationId,
                 userIds: {
                     hasSome: [currentUser.id]
                 }
-            }
-        });
-
-        // Notify users about the conversation removal
-        existingConversation.users.forEach((user) => {
-            if (user.email) {
-                pusherServer.trigger(user.email, 'conversation:remove', existingConversation);
             }
         });
 
