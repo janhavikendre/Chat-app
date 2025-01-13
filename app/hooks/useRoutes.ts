@@ -6,7 +6,7 @@ import {
 } from "react-icons/hi2";
 import { signOut } from "next-auth/react";
 
-import useConversation  from "./useConversation";
+import useConversation from "./useConversation";
 import { useMemo } from "react";
 
 const useRoutes = () => {
@@ -28,7 +28,9 @@ const useRoutes = () => {
         },
         {
             label: 'Logout',
-            onClick: () => signOut(),
+            onClick: () => signOut({
+                callbackUrl: '/'
+            }),
             icon: HiArrowLeftOnRectangle,
             href: '#'
         }
