@@ -159,10 +159,7 @@ const AuthForm = () => {
                             icon={BsGithub}
                             onClick={() => socialAction('github')}
                         />
-                        <AuthSocialButton
-                            icon={BsFacebook} // Facebook Login
-                            onClick={() => socialAction('facebook')}
-                        />
+                        
                     </div>
                 </div>
 
