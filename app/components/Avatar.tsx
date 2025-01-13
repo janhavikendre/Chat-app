@@ -19,7 +19,7 @@ const Avatar: React.FC<AvatarProps> = ({
     return (
         <div className="relative">
             <div 
-            className="realtive inline-block rounded-full overflow-hidden h-8 w-10 md:h-8 md:w-10">
+            className="realtive inline-block rounded-full overflow-hidden h-8 w-10 md:h-9 md:w-10">
 
            <Image 
            alt="Avatar"
