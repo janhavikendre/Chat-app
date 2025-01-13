@@ -16,6 +16,9 @@ const getConversations = async () => {
             where: {
                 userIds: {
                     has: currentUser.id
+                },
+                createdAt: {
+                    gte: new Date(0)
                 }
             },
             include: {
