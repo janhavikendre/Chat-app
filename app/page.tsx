@@ -31,7 +31,7 @@ const ChatSphereLanding = () => {
           Experience seamless, real-time conversations in an open platform. No friend requests, no barriers—just pure communication.
         </p>
         <div className="space-x-4">
-          <Button size="lg">Get Started</Button>
+          <Button size="lg" onClick={()=>router.push("/auth")}>Get Started</Button>
           <Button size="lg" variant="outline">Learn More</Button>
         </div>
        
