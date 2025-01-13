@@ -54,7 +54,7 @@ export async function POST(
             return NextResponse.json(newConversation);
         }
 
-        const existingConversations = await prisma.conversation.findMany({
+        const existingConversations = await prisma.conversation.findFirst({
             where: {
                 OR: [
                     {
@@ -71,7 +71,7 @@ export async function POST(
             }
         })
 
-        const singleConversation = existingConversations[0]
+        const singleConversation = existingConversations
 
         if (singleConversation) {
             return NextResponse.json(singleConversation);
