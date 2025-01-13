@@ -5,11 +5,11 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/app/components/input/input";
 import Button from "@/app/components/Button";
 import AuthSocialButton from "./AuthSocialButton";
-import { BsGithub, BsGoogle, BsFacebook } from "react-icons/bs"; // Add Facebook icon
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { BsGoogle, BsGithub } from "react-icons/bs";
 
 type Varient = 'LOGIN' | 'REGISTER';
 
@@ -101,6 +101,18 @@ const AuthForm = () => {
 
                 {/* Form Section */}
                 <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+
+
+                    {varient === 'REGISTER' && (
+                        <Input
+                            id="name"
+                            label="Name"
+                            register={register}
+                            errors={errors}
+                            disabled={isLoading}
+                        />
+                    )}
+
                     <Input
                         id="email"
                         label="Email Address"

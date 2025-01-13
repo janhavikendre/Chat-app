@@ -3,7 +3,6 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { BsGithub,  } from "react-icons/bs"; 
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 
 
 
